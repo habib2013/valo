@@ -27,6 +27,8 @@ Route::post('/registeruser', [RegisterController::class, 'registeruser']);
 Route::get('/loanbook', [HomeController::class, 'loanbook']);
 Route::get('/payment', [HomeController::class, 'payment']);
 Route::get('/profile', [HomeController::class, 'profile']);
+Route::post('/verify_bvn', [HomeController::class, 'verify_bvn']);
+Route::post('/updatecontact', [HomeController::class, 'updatecontact']);
          
 
 Auth::routes();
