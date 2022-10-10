@@ -148,7 +148,7 @@ function RegisterUser()
 }
 
 
-function updateContact()
+function updateInformation()
 {
    console.log('touched ...');
    $("#login_button").removeAttr("disabled");
@@ -160,13 +160,33 @@ function updateContact()
     var permanent_address    = $("input[name=permanent_address]").val();
     var state    = $("input[name=state]").val();
     var local_government = $("input[name=local_government]").val();
+    var bvn    = $("input[name=bvn]").val();
+    var title    = $("input[name=title]").val();
+    var dob = $("input[name=dob]").val();
+    var fullname = $("input[name=fullname]").val();
+    var email = $("input[name=email]").val();
+    var phone = $("input[name=phone]").val();
+    var alternate_number = $("input[name=alternate_number]").val();
+    var gender = $("input[name=gender]").val();
+
+    
+
 
     
     var data = {
         _token:token,
         permanent_address,
         state,
-        local_government
+        local_government,
+        bvn,
+        title,
+        dob,
+        fullname,
+        email,
+        phone,
+        alternate_number,
+        gender
+
     };
     // Ajax Postxx
     $.ajax({
@@ -303,6 +323,88 @@ function fetchBvnData(){
   }
   
   }
+
+
+ function payWithPaystack(){
+
+  var handler = PaystackPop.setup({ 
+    key: 'pk_test_4fb3d99d8b287d2c740edabc2513ccec4a6636d7', //put your public key here
+    email: email, //put your customer's email here
+    amount: parseInt(amount), //amount the customer is supposed to pay
+    metadata: {
+        custom_fields: [
+            {
+                display_name: firstname,
+                variable_name: lastname,
+               // value: phone //customer's mobile number
+            }
+        ]
+    },
+    callback: function (response) {
+       
+        console.log(response.reference);
+    
+        // $.ajax({
+        //     type: 'POST',
+        //     url: "/payForProductWithCard",
+        //     data: {_token: token,
+        //         reference:response.reference,email,
+        //         amount,firstname,lastname,id,planId
+      
+        //     },
+        //     dataType: 'JSON',
+        //     success: function (data) {   
+        //     if(data.status == "success")
+        //     {
+        //       swal({
+        //         title: "Plan Created",
+        //         text: "You have successfully added a new plan",
+        //         type: "success",
+        //         showCancelButton: false,
+        //         dangerMode: false,
+        //          cancelButtonClass: '#4FE870',
+        //         confirmButtonColor: '#4FE870',
+        //         confirmButtonText: 'OKAY!',
+        //     },
+        //     function(){
+            
+        //         window.location.href ='/home';
+            
+        //     }
+        //     );
+
+        //       //  window.location.href ='/success';
+    
+        //     }
+        //     else {
+             
+        //       swal({
+        //         title: data.status,
+        //         text: data.message,
+        //         type: "error",
+        //         dangerMode: true,
+        //         showCancelButton: false,
+        //         dangerMode: false,
+        //         confirmButtonText: 'ERROR!',
+        //     }
+        //     );
+
+        //     }
+        
+        
+        //     }
+        // });
+        
+
+
+    },
+    onClose: function () {
+        //when the user close the payment modal
+        alert('Transaction cancelled');
+    }
+});
+handler.openIframe();
+ } 
 
   
 

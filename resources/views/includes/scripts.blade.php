@@ -8,7 +8,7 @@
 <script src="../../../polyfill.io/v3/polyfill.min58be.js"></script>
 <script src="../f_assets/vendors/list.js/list.min.js"></script>
 <script src="../f_assets/assets/js/theme.js"></script>
-
+<script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="../f_assets/valo_scripts/auth_scripts.js"></script>
 
 

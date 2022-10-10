@@ -7,12 +7,21 @@
 
 <div id="tableExample3" data-list='{"valueNames":["name","email","payment"],"filter":true}'>
     <div class="row justify-content-end g-0">
+      <div class="col-auto">
+        <a href="/loan_investment">
+          <button class="btn btn-info w-100 fs--1" type="button"><span class="fas fa-credit-card me-2"></span>Invest In a Loan</button>
+     
+        </a>
+    </div>
+         
       <div class="col-auto px-3"> <select class="form-select form-select-sm mb-3" aria-label="Bulk actions" data-list-filter="data-list-filter">
           <option selected="" value="">Select payment status</option>
           <option value="Pending">Pending</option>
           <option value="Success">Success</option>
           <option value="Blocked">Blocked</option>
-        </select></div>
+        </select>
+      </div>
+
     </div>
     <div class="table-responsive scrollbar">
       <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">

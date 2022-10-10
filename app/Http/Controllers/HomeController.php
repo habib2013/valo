@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Courses; 
 use App\Models\BvnData; 
 use App\Models\UserProfile; 
+use App\Models\LoanProduct; 
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -37,7 +38,9 @@ class HomeController extends Controller
     }
 
     public function payment(){
-        return view('payment.user_payment');
+        $id = Auth::user()->id;
+        $auth_user = User::where('id',$id)->first();
+        return view('payment.user_payment',compact('auth_user'));
     }
 
     public function profile(){
@@ -48,13 +51,12 @@ class HomeController extends Controller
         $auth_user = User::where('id',$id)->first();
         $userProfile = UserProfile::where('id',$id)->first();
 
-      //  dd($userProfile);
         return view('profile.profile_seetings',compact('listSchools','listCourses','userProfile','auth_user'));
     }
 
 
     public function updatecontact(Request $request){
-        
+         
         $id = Auth::user()->id;
 
      $isProfileCreated =    UserProfile::updateOrCreate(
@@ -65,6 +67,23 @@ class HomeController extends Controller
                 'state' => $request->state,
                 'local_government' => $request->local_government,
         ]);
+
+        $isUserUpdated = User::updateOrCreate(
+            [
+                'id' => $id,
+            ],  
+            [
+                'bvn' => $request->bvn,
+                'title' => $request->title,
+                'date_of_birth' => $request->dob,
+                'name' => $request->fullname,
+               // 'email' => $request->email,
+                'phone' => $request->phone,
+                'alternate_number' => $request->alternate_number,
+                'gender' => $request->gender,
+             
+            ]
+    );
 
         if($isProfileCreated){
             $kycLevel = Auth::user()->kyc_level;
@@ -79,7 +98,8 @@ class HomeController extends Controller
                 [
                     'id' => $id,
                     'kyc_level' => $newKyc,
-                    'is_contact_updated' => 1
+                    'is_contact_updated' => 1,
+                    'is_personalinfo_updated' => 1,
                 ]
                 );
 
@@ -88,11 +108,13 @@ class HomeController extends Controller
             
             $msg = array(
                 'status'  => 'success',
-                'message' => 'Contact Information updated successfully !'
+                'message' => 'User Information updated successfully !'
             );
     
             return response()->json($msg );
+
         }
+
         else {
             $msg = array(
                 'status'  => 'error',
@@ -121,7 +143,7 @@ class HomeController extends Controller
 
   else {
     $bvn = $request->userbvn;
-    $findData = BvnData::where('NIN',$bvn)->first();
+    $findData = BvnData::where('bvn',$bvn)->first();
     
     // if(is_null($findData)){
 
@@ -135,9 +157,13 @@ class HomeController extends Controller
     return response()->json($msg,200); 
     
   }
-  
 
     }
-    
+  
+ public function loan_investment(Request $request){
+    $loanProduct = LoanProduct::all();
+    return view('loan_book.loan_investment',compact('loanProduct'));
+ }
+
 
 }

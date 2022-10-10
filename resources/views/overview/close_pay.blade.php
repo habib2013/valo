@@ -19,6 +19,7 @@
             <p class="fs--1 text-600 mb-0">kindly make payment before the due date</p>
           </div>
           <div class="col-auto"><button class="btn btn-success w-100 fs--1" type="button"><span class="fas fa-credit-card me-2"></span>Make Payment</button></div>
+         
           <div class="col-auto ps-0">
     
           </div>
