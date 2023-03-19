@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('transaction_histories', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id');
             $table->string('title', 100)->nullable();
             $table->string('description', 100)->nullable();
             $table->string('amount', 100)->nullable();

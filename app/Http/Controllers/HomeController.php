@@ -211,8 +211,9 @@ class HomeController extends Controller
 
             if($updateWallet)
             {
-
+                
                 TransactionHistory::create([
+                    'user_id' => $user_id,
                     'title' => 'Wallet Creditted',
                     'description' => 'Wallet has been successfully credited with '.$getAmount . ' Naira',
                     'amount' =>  $getAmount,
