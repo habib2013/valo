@@ -30,6 +30,7 @@ Route::get('/profile', [HomeController::class, 'profile']);
 Route::get('/loan_investment', [HomeController::class, 'loan_investment']);
 // Route::get('/payment', [HomeController::class, 'payment']);
 Route::post('/verify_bvn', [HomeController::class, 'verify_bvn']);
+Route::post('/addToWallet', [HomeController::class, 'addToWallet']);
 Route::post('/updatecontact', [HomeController::class, 'updatecontact']);
          
 

@@ -157,7 +157,7 @@
               </li>
               <li class="nav-item dropdown"><a class="nav-link" id="navbarDropdownLogin" href="/login" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
         </li>
-              <li class="nav-item"><a class="nav-link" href="/register" data-bs-toggle="modal" data-bs-target="#exampleModal">Register</a></li>
+              <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
             </ul>
           </div>
         </div>

@@ -9,6 +9,7 @@ use App\Models\Courses;
 use App\Models\BvnData; 
 use App\Models\UserProfile; 
 use App\Models\LoanProduct; 
+use App\Models\TransactionHistory; 
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -39,6 +40,7 @@ class HomeController extends Controller
 
     public function payment(){
         $id = Auth::user()->id;
+        
         $auth_user = User::where('id',$id)->first();
         return view('payment.user_payment',compact('auth_user'));
     }
@@ -165,5 +167,77 @@ class HomeController extends Controller
     return view('loan_book.loan_investment',compact('loanProduct'));
  }
 
+ public function addToWallet(Request $request){
+  
+  //  dd($request->all());
+  $reference = $request->reference;
+  $curl = curl_init();
+  
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://api.paystack.co/transaction/verify/".$reference,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+    CURLOPT_HTTPHEADER => array(
+      "Authorization: Bearer sk_test_0071c14fc885c552539f63f63c5f7a63cc7003e9",
+      "Cache-Control: no-cache",
+    ),
+  ));
+  
+  $response = curl_exec($curl);
+  $err = curl_error($curl);
+
+  curl_close($curl);
+  
+  if ($err) {
+    echo "cURL Error #:" . $err;
+  } else {
+    $result = json_decode($response);
+    $user_id = Auth::user()->id;
+  if($result->data->status == 'success'){
+    $getAmount = ($result->data->amount)/100;
+        $existingBalance = Auth::user()->wallet_balance;
+
+        $newBalance = $existingBalance + $getAmount;
+
+        $updateWallet  = User::where('id',$user_id)->update(
+            [
+                'wallet_balance' => $newBalance         
+            ]
+            );
+
+            if($updateWallet)
+            {
+
+                TransactionHistory::create([
+                    'title' => 'Wallet Creditted',
+                    'description' => 'Wallet has been successfully credited with '.$getAmount . ' Naira',
+                    'amount' =>  $getAmount,
+                ]);
+
+                $msg = array(
+                    'status'  => 'success',
+                    'message' => 'Fund Added to wallet Successfully !'
+                );
+    
+                return response()->json($msg );
+            }
+             else 
+             {
+                $msg = array(
+                    'status'  => 'error',
+                    'message' => 'Error while funding wallet '
+                );
+     
+                return response()->json($msg );   
+            }
+  }
+  
+  }
+
+ }
 
 }
