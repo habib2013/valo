@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('transaction_histories', function (Blueprint $table) {
-           // $table->string('user_id')->nullable;
+        Schema::create('loan_investors', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('investor_id');
+            $table->unsignedBigInteger('loan_id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('transaction_histories', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('loan_investors');
     }
 };

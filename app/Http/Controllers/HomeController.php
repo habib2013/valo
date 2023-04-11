@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 use Auth;
-use App\Models\UserSchool; 
+use App\Models\LoanInvestor; 
 use App\Models\School; 
 use App\Models\User; 
 use App\Models\Courses; 
 use App\Models\BvnData; 
 use App\Models\UserProfile; 
 use App\Models\LoanProduct; 
+
 use App\Models\TransactionHistory; 
+use App\Models\AdminWalletVault; 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 
 class HomeController extends Controller
 {
@@ -31,18 +35,28 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        
         return view('home');
     }
 
     public function loanbook(){
         return view('loan_book.loan_index');
     }
+    public function loanfeed(){
+        $id = Auth::user()->id;
+        $auth_user = User::where('id',$id)->first();
+
+        $show_loan_available = LoanInvestor::all();
+
+        dd($show_loan_available);
+        return view('loan_feed.loan_feed',compact('auth_user'));
+    }
 
     public function payment(){
         $id = Auth::user()->id;
-        
+        $transactionHistory = TransactionHistory::where('user_id',$id)->get();
         $auth_user = User::where('id',$id)->first();
-        return view('payment.user_payment',compact('auth_user'));
+        return view('payment.user_payment',compact('auth_user','transactionHistory'));
     }
 
     public function profile(){
@@ -240,5 +254,71 @@ class HomeController extends Controller
   }
 
  }
+
+
+ public function logout()
+ {
+     Session::flush();
+     Auth::logout();
+     return redirect('login');
+ }
+
+
+ public function investInALoan(Request $request){
+
+    $wallet_balance = Auth::user()->wallet_balance;
+    $investor_id = Auth::user()->id;
+
+    
+    if($wallet_balance < $request->max_investment){
+
+        $msg = array(
+            'status'  => 'error',
+            'message' => 'Wallet Balance is low,please choose alternate plans '
+        );
+        return response()->json($msg );   
+    }
+    else {
+
+        $debitFromWallet = $wallet_balance - $request->max_investment;
+
+         User::where('id',$investor_id)->update(
+            [
+                'wallet_balance' => $debitFromWallet         
+            ]
+            );
+
+
+            AdminWalletVault::create(
+                [
+                    'user_id' => $investor_id,
+                    'amount' => $request->max_investment,
+                    'loan_pckage' => $request->loan_package_id,
+                ]
+            );
+
+        $create_package_for_investor = LoanInvestor::create(
+            [
+            'investor_id' => $investor_id,
+            'loan_id' => $request->loan_package_id,
+        ]
+    ); 
+
+        if($create_package_for_investor){
+         
+        $msg = array(
+            'status'  => 'success',
+            'message' => 'Plan created successfully, redirecting to your personalised investment dashboard'
+        );
+        return response()->json($msg );      
+        }
+    }
+    
+
+  
+
+
+ }
+
 
 }

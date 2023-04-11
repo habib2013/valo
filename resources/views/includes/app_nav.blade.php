@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand" style="display: none;">
     <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-    <a class="navbar-brand me-1 me-sm-3" href="../index.html">
+    <a class="navbar-brand me-1 me-sm-3" href="/">
       <div class="d-flex align-items-center"><img class="me-2" src="../assets/img/icons/spot-illustrations/falcon.png" alt="" width="40" /><span class="font-sans-serif">falcon</span></div>
     </a>
     <ul class="navbar-nav align-items-center d-none d-lg-block">
@@ -118,7 +118,7 @@
             <a class="dropdown-item" href="/profile">Profile &amp; account</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="../pages/user/settings.html">Settings</a>
-            <a class="dropdown-item" href="../pages/authentication/card/logout.html">Logout</a>
+            <a class="dropdown-item" href="/logout">Logout</a>
           </div>
         </div>
       </li>
@@ -126,14 +126,14 @@
   </nav>
   <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand-lg" style="display: none;" data-move-target="#navbarVerticalNav" data-navbar-top="combo">
     <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-    <a class="navbar-brand me-1 me-sm-3" href="../index.html">
+    <a class="navbar-brand me-1 me-sm-3" href="/">
       <div class="d-flex align-items-center"><img class="me-2" src="../assets/img/icons/spot-illustrations/falcon.png" alt="" width="40" /><span class="font-sans-serif">valo</span></div>
     </a>
     <div class="collapse navbar-collapse scrollbar" id="navbarStandard">
       <ul class="navbar-nav" data-top-nav-dropdowns="data-top-nav-dropdowns">
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dashboards">Dashboard</a>
           <div class="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0" aria-labelledby="dashboards">
-            <div class="bg-white dark__bg-1000 rounded-3 py-2"><a class="dropdown-item link-600 fw-medium" href="../index.html">Default</a><a class="dropdown-item link-600 fw-medium" href="analytics.html">Analytics</a><a class="dropdown-item link-600 fw-medium" href="crm.html">CRM</a><a class="dropdown-item link-600 fw-medium" href="e-commerce.html">E commerce</a><a class="dropdown-item link-600 fw-medium" href="project-management.html">Management</a><a class="dropdown-item link-600 fw-medium" href="saas.html">SaaS</a></div>
+            <div class="bg-white dark__bg-1000 rounded-3 py-2"><a class="dropdown-item link-600 fw-medium" href="/">Default</a><a class="dropdown-item link-600 fw-medium" href="analytics.html">Analytics</a><a class="dropdown-item link-600 fw-medium" href="crm.html">CRM</a><a class="dropdown-item link-600 fw-medium" href="e-commerce.html">E commerce</a><a class="dropdown-item link-600 fw-medium" href="project-management.html">Management</a><a class="dropdown-item link-600 fw-medium" href="saas.html">SaaS</a></div>
           </div>
         </li>
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="apps">App</a>

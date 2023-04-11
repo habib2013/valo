@@ -2,9 +2,6 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
-  
-<!-- Mirrored from prium.github.io/falcon/v3.11.0/pages/authentication/split/login.html by HTTrack Website Copier/3.x [XR&CO'2017], Wed, 07 Sep 2022 11:01:02 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 
 @include('auth.includes.auth_head')
 
@@ -54,7 +51,8 @@
                         <div class="col-auto">
                           <div class="form-check mb-0"><input class="form-check-input" type="checkbox" id="split-checkbox" /><label class="form-check-label mb-0" for="split-checkbox">Remember me</label></div>
                         </div>
-                        <div class="col-auto"><a class="fs--1" href="forgot-password.html">Forgot Password?</a></div>
+                        {{--  <div class="col-auto"><a class="fs--1" href="forgot-password.html">Forgot Password?</a></div>
+                      --}}
                       </div>
                       <div class="mb-3"><button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit" id="login_button">Log in</button></div>
                     </form>

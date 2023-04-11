@@ -412,6 +412,68 @@ function fetchBvnData(){
 handler.openIframe();
  } 
 
+
+ function investinALoan(){
+
+
+    var token    = $("input[name=token]").val();
+    var loan_package_id    = $("input[name=loan_package_id]").val();
+    var max_investment    = $("input[name=max_investment]").val();
+
+    var data = {
+        _token: token,
+        loan_package_id,
+        max_investment
+    }
+
+
+    $.ajax({
+        type: "post",
+        url: "/investInALoan",
+        data: data,
+        cache: false,
+        beforeSend:function(){
+          $("#invest_in_a_loan").attr("disabled", "disabled");
+                $("#invest_in_a_loan").html('Proccessing . . <i class="fas fa-spinner fa-spin text-white"></i>')
+        },
+
+        success: function (data)
+        {
+            console.log('login request sent !');
+            if(data.status == 'success'){
+                $(".show_toastr").html(toastr(data.message,'check','success'))
+
+                $("#invest_in_a_loan").removeAttr("disabled");
+                $("#invest_in_a_loan").html('Redirecting to dashboard');
+
+                setTimeout(function () {
+                    window.location.href = '/loan_investment';
+                }, 3000);
+
+              
+
+            }
+            else {
+                $(".show_toastr").html(toastr(data.message,'times','danger'))
+                $("#invest_in_a_loan").removeAttr("disabled");
+                $("#invest_in_a_loan").html('Invest');
+            }
+
+            $("#invest_in_a_loan").removeAttr("disabled");
+                $("#invest_in_a_loan").html('Invest');
+
+        },
+
+        error: function (data){
+
+    
+
+        }
+    });
+
+ } 
+
+
   
 
 

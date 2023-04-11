@@ -25,6 +25,7 @@ Route::get('/', function () {
 Route::post('/loginuser', [LoginController::class, 'loginuser']);
 Route::post('/registeruser', [RegisterController::class, 'registeruser']);
 Route::get('/loanbook', [HomeController::class, 'loanbook']);
+Route::get('/loanfeed', [HomeController::class, 'loanfeed']);
 Route::get('/payment', [HomeController::class, 'payment']);
 Route::get('/profile', [HomeController::class, 'profile']);
 Route::get('/loan_investment', [HomeController::class, 'loan_investment']);
@@ -32,8 +33,9 @@ Route::get('/loan_investment', [HomeController::class, 'loan_investment']);
 Route::post('/verify_bvn', [HomeController::class, 'verify_bvn']);
 Route::post('/addToWallet', [HomeController::class, 'addToWallet']);
 Route::post('/updatecontact', [HomeController::class, 'updatecontact']);
-         
-
+Route::post('/investInALoan', [HomeController::class, 'investInALoan']);
+Route::get('/logout', [HomeController::class, 'logout']);
+        
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

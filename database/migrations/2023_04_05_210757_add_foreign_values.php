@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('transaction_histories', function (Blueprint $table) {
-           // $table->string('user_id')->nullable;
+        Schema::table('loan_investors', function (Blueprint $table) {
+          
+          //  $table->unsignedBigInteger('investor_id');
+            $table->foreign('investor_id')->references('id')->on('users');
+            $table->foreign('loan_id')->references('id')->on('loan_products');
+            
+         
         });
     }
 
@@ -25,7 +30,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('transaction_histories', function (Blueprint $table) {
+        Schema::table('loan_investors', function (Blueprint $table) {
             //
         });
     }

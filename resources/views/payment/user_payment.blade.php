@@ -42,7 +42,7 @@
       </div>
       <div class="card-body bg-light">
 
-        <div id="tableExample3" data-list='{"valueNames":["name","email","payment"],"filter":true}'>
+        <div id="tableExample3" data-list="{"valueNames":["name","email","payment"],"filter":true}"">
           <div class="row justify-content-end g-0">
             <div class="col-auto">
               <a href="/loan_investment">
@@ -65,38 +65,26 @@
                 </tr>
               </thead>
               <tbody class="list" id="table-purchase-body">
-                <tr class="btn-reveal-trigger">
-                  <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">Sylvia Plath</a></th>
-                  <td class="align-middle white-space-nowrap email">This is a test,test test</td>
-                  <td class="align-middle text-end fs-0 white-space-nowrap payment">
-                     <span class="badge badge rounded-pill badge-soft-success">Success
-                      <span class="ms-1 fas fa-check" data-fa-transform="shrink-2">
 
-                      </span>
-                    </span>
+
+                @foreach ($transactionHistory as $item)
+                <tr class="btn-reveal-trigger">
+                  <th class="align-middle white-space-nowrap name"><a href="">{{$item->title}}</a></th>
+                  <td class="align-middle white-space-nowrap email">{{$item->description}}</td>
+                  <td class="align-middle text-end fs-0 white-space-nowrap payment">
+                    ₦{{$item->amount}}
                   </td>
                   <td class="align-middle text-end fs-0 white-space-nowrap payment">
-                    <span class="badge badge rounded-pill badge-soft-success">Success
-                     <span class="ms-1 fas fa-check" data-fa-transform="shrink-2">
-
-                     </span>
-                   </span>
+                    {{$item->created_at->diffForHumans()}}
                  </td>
                   
                 </tr>
-                <tr class="btn-reveal-trigger">
-                  <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">Homer</a></th>
-                  <td class="align-middle white-space-nowrap email">sylvia@mail.ru</td>
-                  <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-warning">Pending<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span></td>
-               
-                  <td class="align-middle text-end fs-0 white-space-nowrap payment">
-                    <span class="badge badge rounded-pill badge-soft-success">Success
-                     <span class="ms-1 fas fa-check" data-fa-transform="shrink-2">
+            @endforeach
 
-                     </span>
-                   </span>
-                 </td>
-                </tr>
+                             
+                    
+       
+         
               
               </tbody>
             </table>

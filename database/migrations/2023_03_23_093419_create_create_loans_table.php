@@ -13,20 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('loan_products', function (Blueprint $table) {
+        Schema::create('create_loans', function (Blueprint $table) {
             $table->id();
-            $table->string('loan_name');
-            $table->double('interest', 15, 8)->nullable()->default(0.0);
-            $table->double('min_interest')->unsigned()->nullable()->default(0);
-            $table->double('max_interest')->unsigned()->nullable()->default(0);
-            $table->integer('min_principal')->unsigned()->nullable()->default(0);
-            $table->integer('max_principal')->unsigned()->nullable()->default(0);
+            $table->string('loan_title')->nullable();
             $table->string('investor_level_allowed')->nullable();
             $table->string('student_level_allowed')->nullable();
+            $table->string('min_interest')->nullable();
+            $table->string('max_interest')->nullable();
             $table->boolean('is_latefee_allowed')->nullable();
             $table->integer('latefee_interest')->nullable();
             $table->integer('loan_tenor')->nullable();
-            $table->string('repayment_interval')->nullable();
+            $table->integer('repayment_interval')->nullable();
+            
             $table->timestamps();
         });
     }
@@ -38,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loan_products');
+        Schema::dropIfExists('create_loans');
     }
 };

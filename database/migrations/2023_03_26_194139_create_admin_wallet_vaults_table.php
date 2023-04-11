@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('transaction_histories', function (Blueprint $table) {
-           // $table->string('user_id')->nullable;
+        Schema::create('admin_wallet_vaults', function (Blueprint $table) {
+            $table->id();
+            $table->string('user_id');
+            $table->string('amount');
+            $table->string('loan_pckage');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('transaction_histories', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('admin_wallet_vaults');
     }
 };

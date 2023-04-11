@@ -31,7 +31,7 @@
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-book"></span></span><span class="nav-link-text ps-1">My Loan Book</span></div>
             </a><!-- parent pages-->
         
-            <a class="nav-link" href="app/chat.html" role="button" data-bs-toggle="" aria-expanded="false">
+            <a class="nav-link" href="loanfeed" role="button" data-bs-toggle="" aria-expanded="false">
               <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-bolt"></span></span><span class="nav-link-text ps-1">Loan Feed</span></div>
             </a><!-- parent pages-->
 
