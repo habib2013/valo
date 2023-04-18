@@ -71,8 +71,6 @@
 
  
 
-
-    @include('includes.theme_switch')
    
     @include('auth.includes.auth_scripts')
 

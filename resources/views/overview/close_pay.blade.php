@@ -8,7 +8,7 @@
           </div>
           <div class="col-auto">
             <div class="bg-soft-primary px-3 py-3 rounded-circle text-center" style="width:60px;height:60px;">
-              <h5 class="text-primary mb-0 d-flex flex-column mt-n1"><span>09</span><small class="text-primary fs--2 lh-1">MAR</small></h5>
+              <h5 class="text-primary mb-0 d-flex flex-column mt-n1"><span></span><small class="text-primary fs--2 lh-1"></small></h5>
             </div>
           </div>
         </div>

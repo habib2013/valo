@@ -45,10 +45,18 @@
         <div id="tableExample3" data-list="{"valueNames":["name","email","payment"],"filter":true}"">
           <div class="row justify-content-end g-0">
             <div class="col-auto">
+
+
+              @if ($auth_user->user_type == 'Student' )
+                  
+              @else
               <a href="/loan_investment">
                 <button class="btn btn-info w-100 fs--1" type="button"><span class="fas fa-credit-card me-2"></span>Invest In a Loan</button>
-           
               </a>
+              @endif
+
+           
+
           </div>
          
       

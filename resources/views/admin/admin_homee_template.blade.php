@@ -22,7 +22,7 @@
           }
         </script>
      
-     @include('includes.navs')
+     @include('admin.navs_admin')
 
      <div class="content">
     

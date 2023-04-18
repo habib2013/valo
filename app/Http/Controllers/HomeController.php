@@ -9,7 +9,7 @@ use App\Models\Courses;
 use App\Models\BvnData; 
 use App\Models\UserProfile; 
 use App\Models\LoanProduct; 
-
+use App\Models\LoanAcceptance; 
 use App\Models\TransactionHistory; 
 use App\Models\AdminWalletVault; 
 use Illuminate\Http\Request;
@@ -39,6 +39,113 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function admin_home(Request $request)
+    {
+        return view('admin.adminhome');
+    }
+
+    public function addLoan(Request $request){
+        $input = $request->all();
+
+        $loan_created =  LoanProduct::create($input);
+ 
+        if($loan_created){
+         $msg = array(
+             'status'  => 'success',
+             'message' => 'Loan Product Added Successfully',
+             // 'username' => $username,
+         );
+ 
+         return response()->json($msg);
+        } else {
+         $msg = array(
+             'status'  => 'error',
+             'message' => 'Failed',
+             // 'username' => $username,
+         );
+ 
+         return response()->json($msg);
+        }
+    }
+    
+
+    public function addSchool(Request $request){
+        $input = $request->all();
+
+       $school_created =  School::create($input);
+
+       if($school_created){
+        $msg = array(
+            'status'  => 'success',
+            'message' => 'School Added Successfully',
+            // 'username' => $username,
+        );
+
+        return response()->json($msg);
+       } else {
+        $msg = array(
+            'status'  => 'error',
+            'message' => 'Failed',
+            // 'username' => $username,
+        );
+
+        return response()->json($msg);
+       }
+
+    }
+
+    public function allusers(Request $request){
+        $allUsers = User::all();
+      //  dd($allUsers);
+        $id = Auth::user()->id;
+        $auth_user = User::where('id',$id)->first();
+        return view('admin.admin_users',compact('allUsers','auth_user'));
+    }
+    
+    public function allschools(Request $request){
+        $allUsers = School::all();
+      //  dd($allUsers);
+        $id = Auth::user()->id;
+        $auth_user = User::where('id',$id)->first();
+        return view('admin.admin_schools',compact('allUsers','auth_user'));
+    }
+
+    public function allloans(Request $request){
+        $allProducts = LoanProduct::all();
+      //  dd($allUsers);
+        $id = Auth::user()->id;
+        $auth_user = User::where('id',$id)->first();
+        return view('admin.admin_loans',compact('allProducts','auth_user'));
+    }
+
+    
+
+
+    public function addschools(Request $request){
+        $allUsers = User::all();
+      //  dd($allUsers);
+        $id = Auth::user()->id;
+        $auth_user = User::where('id',$id)->first();
+        return view('admin.add_school',compact('allUsers','auth_user'));
+    }
+    
+    public function addloans(Request $request){
+        $allUsers = User::all();
+      //  dd($allUsers);
+        $id = Auth::user()->id;
+        $auth_user = User::where('id',$id)->first();
+        return view('admin.add_loan',compact('allUsers','auth_user'));
+    }
+    
+
+    
+    
+
+
+
+    
+
+    
     public function loanbook(){
         return view('loan_book.loan_index');
     }
@@ -48,8 +155,21 @@ class HomeController extends Controller
 
         $show_loan_available = LoanInvestor::all();
 
-        dd($show_loan_available);
-        return view('loan_feed.loan_feed',compact('auth_user'));
+      //  dd($show_loan_available);
+
+      //dd($show_loan_available->investor);
+
+        return view('loan_feed.loan_feed',compact('auth_user','show_loan_available','id'));
+    }
+
+    public function viewAllLoans(Request $request,$id){
+
+       $singleInvestorProfile =  LoanInvestor::where('investor_id',$id)->first();
+
+       $showLoan = LoanProduct::where('id',$singleInvestorProfile->loan_id)->get();
+
+      // dd($showLoan);
+        return view('loan_book.loan_index',compact('showLoan','id'));
     }
 
     public function payment(){
@@ -263,6 +383,118 @@ class HomeController extends Controller
      return redirect('login');
  }
 
+
+ 
+
+ public function iwantthisloan(Request $request){
+
+    $wallet_balance = Auth::user()->wallet_balance;
+  //  $investor_id = Auth::user()->id;
+
+    
+    // if($wallet_balance < $request->max_investment){
+
+    //     $msg = array(
+    //         'status'  => 'error',
+    //         'message' => 'Wallet Balance is low,please choose alternate plans '
+    //     );
+    //     return response()->json($msg );   
+    // }
+    // else {
+
+       $acceptLoan =  LoanAcceptance::create($request->all());
+
+            if($acceptLoan){
+                $user_id = Auth::user()->id;
+                $findLoan = LoanProduct::where('id',$request->loan_id)->first();
+
+                $getAmount = $findLoan->max_principal;
+
+                $findAdminVaultAmount = AdminWalletVault::where('loan_pckage',$request->loan_id)->first();
+
+                // sendFundToClient
+
+                $existingBalance = Auth::user()->wallet_balance;
+
+                $newBalance = $existingBalance + $findAdminVaultAmount->amount;
+        
+                $updateWallet  = User::where('id',$user_id)->update(
+                    [
+                        'wallet_balance' => $newBalance         
+                    ]
+                    );
+
+                    AdminWalletVault::where('loan_pckage',$request->loan_id)->update(
+                        [
+                            'amount' => $findAdminVaultAmount->amount - $getAmount
+                        ]
+                        );
+
+                        TransactionHistory::create([
+                            'user_id' => $user_id,
+                            'title' => 'Wallet Creditted',
+                            'description' => 'Fund disbursed to your wallet from a loan',
+                            'amount' =>  $getAmount,
+                        ]);
+
+                    
+                           $msg = array(
+            'status'  => 'success',
+            'message' => 'Loan accepted and credited to your wallet'
+        );
+        return response()->json($msg );      
+        }
+
+        else {
+             $msg = array(
+            'status'  => 'Error',
+            'message' => 'Unable to accept'
+        );
+        return response()->json($msg );      
+        
+        }
+
+            }
+
+        // $debitFromWallet = $wallet_balance - $request->max_investment;
+
+        //  User::where('id',$investor_id)->update(
+        //     [
+        //         'wallet_balance' => $debitFromWallet         
+        //     ]
+        //     );
+
+
+        //     AdminWalletVault::create(
+        //         [
+        //             'user_id' => $investor_id,
+        //             'amount' => $request->max_investment,
+        //             'loan_pckage' => $request->loan_package_id,
+        //         ]
+        //     );
+
+        // $create_package_for_investor = LoanInvestor::create(
+        //     [
+        //     'investor_id' => $investor_id,
+        //     'loan_id' => $request->loan_package_id,
+        // ]
+    // ); 
+
+        // if($create_package_for_investor){
+         
+        // $msg = array(
+        //     'status'  => 'success',
+        //     'message' => 'Plan created successfully, redirecting to your personalised investment dashboard'
+        // );
+        // return response()->json($msg );      
+        // }
+    // }
+    
+
+  
+
+
+//  }
 
  public function investInALoan(Request $request){
 

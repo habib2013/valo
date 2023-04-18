@@ -117,7 +117,7 @@
           <div class="bg-white dark__bg-1000 rounded-2 py-2">
             <a class="dropdown-item" href="/profile">Profile &amp; account</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="../pages/user/settings.html">Settings</a>
+  
             <a class="dropdown-item" href="/logout">Logout</a>
           </div>
         </div>

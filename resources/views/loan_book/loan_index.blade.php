@@ -2,91 +2,77 @@
 @section('title', 'Loan Book')
 @section('content')
 
-@include('overview.report')
+<div class="card mb-3">
+  <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../../../f_assets/assets/img/icons/spot-illustrations/corner-4.png);"></div>
 
+  <div class="card-body position-relative">
+    <div class="row">
+ 
+        <h3>Investor profile</h3>
+       
 
-<div id="tableExample3" data-list='{"valueNames":["name","email","payment"],"filter":true}'>
-    <div class="row justify-content-end g-0">
-      <div class="col-auto">
-        <a href="/loan_investment">
-          <button class="btn btn-info w-100 fs--1" type="button"><span class="fas fa-credit-card me-2"></span>Invest In a Loan</button>
-     
-        </a>
-    </div>
-         
-      <div class="col-auto px-3"> <select class="form-select form-select-sm mb-3" aria-label="Bulk actions" data-list-filter="data-list-filter">
-          <option selected="" value="">Select payment status</option>
-          <option value="Pending">Pending</option>
-          <option value="Success">Success</option>
-          <option value="Blocked">Blocked</option>
-        </select>
+        <div class="row g-0">
+   
+          <div class="show_hide">
+            <div class="show_toastr"></div>
+        </div>
+
+            <div class="mb-3">
+              <div class="card-header bg-light">
+        
+                <div class="card mb-3">
+                  <div class="card-header bg-light d-flex justify-content-between">
+                    <h5 class="mb-0">Available Loans</h5><a class="font-sans-serif" href="../../app/social/activity-log.html"></a>
+                  </div>
+                  <div class="fs--1 p-0">
+                    <a class="border-bottom-0 notification rounded-0 border-x-0 border border-300" href="#!">
+                      <div class="notification-avatar">
+                        <div class="avatar avatar-xl me-3">
+                          <div class="avatar-emoji rounded-circle "><span role="img" aria-label="Emoji">💰 </span></div>
+                        </div>
+                      </div>
+                      <input type="hidden" name="investor_id" id="investor_id" class="form-control" value="{{$id}}">
+        
+                      @foreach ($showLoan as $item)
+                      <div class="notification-body">
+                        <p class="mb-1"><strong>{{$item->loan_name}}</strong> @ {{$item->max_interest}}% / {{$item->repayment_interval}}</strong></p>
+                        <span class="notification-time"><b>Finance amount: </b> {{$item->max_principal}}</span> <br>
+                        <span class="notification-time"><b>Loan Tenor: </b> {{$item->loan_tenor}} weeks</span> <br>
+                        <span class="notification-time"><b>Repayment Interval: </b> {{$item->repayment_interval}}</span> <br>
+                      
+                        <input type="hidden" name="token" id="token" class="form-control" value="{{ csrf_token() }}">
+                        <input type="hidden" name="loan_id" id="loan_id" class="form-control" value="{{$item->id}}">
+                        <input type="hidden" name="client_id" id="client_id" class="form-control" value="{{auth()->user()->id}}">
+                    
+                       <br>
+                       <div class="d-flex justify-content-between">
+                        <button id="login_button" class="btn btn-primary d-block w-100" type="submit" onclick="iwantThisLoan()"><span class=""></span>I want this Loan</button> 
+                        <div style="padding-left:5%"></div>
+                        <button id="cancel_button" class="btn btn-danger d-block w-100" type="submit" onclick="notInterested()"><span class=""></span>Not Interested</button> 
+                    
+                       </div>
+                      
+                      </div>      
+                      @endforeach
+                    
+                    </a>
+        
+               
+                  </div>
+        
+        
+        
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-    </div>
-    <div class="table-responsive scrollbar">
-      <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
-        <thead class="bg-200 text-900">
-          <tr>
-            <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Customer</th>
-            <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Email</th>
-            <th class="sort align-middle white-space-nowrap text-end pe-4" data-sort="payment">Payment</th>
-          </tr>
-        </thead>
-        <tbody class="list" id="table-purchase-body">
-          <tr class="btn-reveal-trigger">
-            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">Sylvia Plath</a></th>
-            <td class="align-middle white-space-nowrap email">john@gmail.com</td>
-            <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-success">Success<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span></td>
-          </tr>
-          <tr class="btn-reveal-trigger">
-            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">Homer</a></th>
-            <td class="align-middle white-space-nowrap email">sylvia@mail.ru</td>
-            <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-warning">Pending<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span></td>
-          </tr>
-          <tr class="btn-reveal-trigger">
-            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">Edgar Allan Poe</a></th>
-            <td class="align-middle white-space-nowrap email">edgar@yahoo.com</td>
-            <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-secondary">Blocked<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span></span></td>
-          </tr>
-          <tr class="btn-reveal-trigger">
-            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">William Butler Yeats</a></th>
-            <td class="align-middle white-space-nowrap email">william@gmail.com</td>
-            <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-success">Success<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span></td>
-          </tr>
-          <tr class="btn-reveal-trigger">
-            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">Rabindranath Tagore</a></th>
-            <td class="align-middle white-space-nowrap email">tagore@twitter.com</td>
-            <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-warning">Pending<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span></td>
-          </tr>
-          <tr class="btn-reveal-trigger">
-            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">Emily Dickinson</a></th>
-            <td class="align-middle white-space-nowrap email">emily@gmail.com</td>
-            <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-secondary">Blocked<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span></span></td>
-          </tr>
-          <tr class="btn-reveal-trigger">
-            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">Giovanni Boccaccio</a></th>
-            <td class="align-middle white-space-nowrap email">giovanni@outlook.com</td>
-            <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-warning">Pending<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span></td>
-          </tr>
-          <tr class="btn-reveal-trigger">
-            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">Oscar Wilde</a></th>
-            <td class="align-middle white-space-nowrap email">oscar@hotmail.com</td>
-            <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-success">Success<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span></td>
-          </tr>
-          <tr class="btn-reveal-trigger">
-            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">John Doe</a></th>
-            <td class="align-middle white-space-nowrap email">doe@gmail.com</td>
-            <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-success">Success<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span></td>
-          </tr>
-          <tr class="btn-reveal-trigger">
-            <th class="align-middle white-space-nowrap name"><a href="../../app/e-commerce/customer-details.html">Emma Watson</a></th>
-            <td class="align-middle white-space-nowrap email">emma@gmail.com</td>
-            <td class="align-middle text-end fs-0 white-space-nowrap payment"> <span class="badge badge rounded-pill badge-soft-warning">Pending<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span></td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </div>
+</div>
+
+
 
 
 

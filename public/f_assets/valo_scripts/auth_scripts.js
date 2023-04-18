@@ -48,7 +48,14 @@ function LoginUser()
 
                 $("#login_button").removeAttr("disabled");
                 $("#login_button").html('Redirecting to dashboard');
-                window.location.href = '/home';
+                // console.log(data);
+                if(data.is_admin == 1){
+                    window.location.href = '/admin_home';
+                }
+                else {
+                    window.location.href = '/home';
+                }
+         
 
             }
             else {
@@ -146,6 +153,195 @@ function RegisterUser()
     });
     return false;
 }
+
+
+
+function AddSchool()
+{
+   console.log('touched ...');
+   $("#login_button").removeAttr("disabled");
+//    $(".show_hide").hide();
+      //  $(".show_toastr").html(toastr('Hello here','check','danger'))
+
+
+    var token    = $("input[name=_token]").val();
+    var name    = $("input[name=name]").val();
+    var size    = $("input[name=size]").val();
+    var min_amount = $("input[name=min_amount]").val();
+    var max_amount = $("input[name=max_amount]").val();
+    var accredited = $("select[name=accredited]").val() == 'yes' ? 1 : 0;
+    
+
+    if(accredited.length == 0){
+        $(".show_toastr").html(toastr('Accredited field is required','times','danger'));
+    }
+    if(min_amount > max_amount){
+        $(".show_toastr").html(toastr('Minimum amount can\'t be greater than maximum','times','danger'));
+    }
+
+    var data = {
+        _token:token,
+        name,
+        size,
+        min_amount,
+        max_amount,
+        accredited
+    };
+    // Ajax Postxx
+    $.ajax({
+        type: "post",
+        url: "/addSchool",
+        data: data,
+        cache: false,
+        beforeSend:function(){
+          $("#login_button").attr("disabled", "disabled");
+                $("#login_button").html('Proccessing . . <i class="fas fa-spinner fa-spin text-white"></i>')
+        },
+
+        success: function (data)
+        {
+            console.log('login request sent  !',data);
+            if(data.status == 'success'){
+                $(".show_toastr").html(toastr(data.message,'check','success'))
+                $("#login_button").removeAttr("disabled");
+                // $("#login_button").html('Registeration Successful');
+                // $("#login_button").html('Redirecting to Login');
+                // window.location.href = '/login';
+                var delayInMilliseconds = 2000; //1 second
+                $("#login_button").html('Redirecting to Login');
+                setTimeout(function() {
+               
+                    window.location.href = '/admin/schools';
+                }, delayInMilliseconds);
+            }
+            else {
+                $(".show_toastr").html(toastr(data.message,'times','danger'))
+    
+                $("#login_button").removeAttr("disabled");
+                $("#login_button").html('Registeration Failed');
+
+            }
+
+            $("#login_button").removeAttr("disabled");
+                $("#login_button").html('School Added');
+
+        },
+
+        error: function (data){
+
+    
+
+        }
+    });
+    return false;
+}
+
+function AddLoan()
+{
+   console.log('touched ...');
+   $("#login_button").removeAttr("disabled");
+//    $(".show_hide").hide();
+      //  $(".show_toastr").html(toastr('Hello here','check','danger'))
+
+
+    //   $table->string('loan_name');
+    //   $table->double('interest', 15, 8)->nullable()->default(0.0);
+    //   $table->double('min_interest')->unsigned()->nullable()->default(0);
+    //   $table->double('max_interest')->unsigned()->nullable()->default(0);
+    //   $table->integer('min_principal')->unsigned()->nullable()->default(0);
+    //   $table->integer('max_principal')->unsigned()->nullable()->default(0);
+    //   $table->string('investor_level_allowed')->nullable();
+    //   $table->string('student_level_allowed')->nullable();
+    //   $table->boolean('is_latefee_allowed')->nullable();
+    //   $table->integer('latefee_interest')->nullable();
+    //   $table->integer('loan_tenor')->nullable();
+    //   $table->string('repayment_interval')->nullable();
+
+
+
+    var token    = $("input[name=_token]").val();
+    var loan_name    = $("input[name=loan_name]").val();
+    var interest    = $("input[name=interest]").val();
+    var min_interest = $("input[name=min_interest]").val();
+    var max_interest = $("input[name=max_interest]").val();
+    var min_principal = $("select[name=min_principal]").val();
+    var max_principal = $("input[name=max_principal]").val();
+    var investor_level_allowed = $("input[name=investor_level_allowed]").val();
+    var student_level_allowed = $("input[name=student_level_allowed]").val();
+    var is_latefee_allowed = $("select[name=is_latefee_allowed]").val()  == 'yes' ? 1 : 0;
+    var latefee_interest = $("input[name=latefee_interest]").val();
+    var loan_tenor = $("input[name=loan_tenor]").val();
+    var repayment_interval = $("input[name=repayment_interval]").val();
+    
+
+  
+
+    var data = {
+        _token:token,
+        loan_name,
+        interest,
+        min_interest,
+        max_interest,
+        min_principal,
+        max_principal,
+        investor_level_allowed,
+        student_level_allowed,
+        is_latefee_allowed,
+        latefee_interest,
+        loan_tenor,
+        repayment_interval,
+
+    };
+    // Ajax Postxx
+    $.ajax({
+        type: "post",
+        url: "/addLoan",
+        data: data,
+        cache: false,
+        beforeSend:function(){
+          $("#login_button").attr("disabled", "disabled");
+                $("#login_button").html('Proccessing . . <i class="fas fa-spinner fa-spin text-white"></i>')
+        },
+
+        success: function (data)
+        {
+            console.log('login request sent  !',data);
+            if(data.status == 'success'){
+                $(".show_toastr").html(toastr(data.message,'check','success'))
+                $("#login_button").removeAttr("disabled");
+                // $("#login_button").html('Registeration Successful');
+                // $("#login_button").html('Redirecting to Login');
+                // window.location.href = '/login';
+                var delayInMilliseconds = 2000; //1 second
+                $("#login_button").html('Redirecting to Login');
+                setTimeout(function() {
+               
+                    window.location.href = '/admin/loans';
+                }, delayInMilliseconds);
+            }
+            else {
+                $(".show_toastr").html(toastr(data.message,'times','danger'))
+    
+                $("#login_button").removeAttr("disabled");
+                $("#login_button").html('Registeration Failed');
+
+            }
+
+            $("#login_button").removeAttr("disabled");
+                $("#login_button").html('Loan product Added');
+
+        },
+
+        error: function (data){
+
+    
+
+        }
+    });
+    return false;
+}
+
+
 
 
 function updateInformation()
@@ -327,7 +523,6 @@ function fetchBvnData(){
 
  function payWithPaystack(){
 
-    
 
     var email    = $("input[name=email]").val();
     var amount = $("input[name=fund_amount]").val();
@@ -472,6 +667,69 @@ handler.openIframe();
     });
 
  } 
+
+ function iwantThisLoan(){
+
+
+    var token    = $("input[name=token]").val();
+    var loan_id    = $("input[name=loan_id]").val();
+    var client_id    = $("input[name=client_id]").val();
+    var investor_id    = $("input[name=investor_id]").val();
+
+    var data = {
+        _token: token,
+        loan_id,
+        client_id,
+        investor_id
+    }
+
+
+    $.ajax({
+        type: "post",
+        url: "/iwantthisloan",
+        data: data,
+        cache: false,
+        beforeSend:function(){
+          $("#invest_in_a_loan").attr("disabled", "disabled");
+                $("#invest_in_a_loan").html('Proccessing . . <i class="fas fa-spinner fa-spin text-white"></i>')
+        },
+
+        success: function (data)
+        {
+            console.log('login request sent !');
+            if(data.status == 'success'){
+                $(".show_toastr").html(toastr(data.message,'check','success'))
+
+                $("#invest_in_a_loan").removeAttr("disabled");
+                $("#invest_in_a_loan").html('Redirecting to dashboard');
+
+                setTimeout(function () {
+                    window.location.href = '/loan_investment';
+                }, 3000);
+
+              
+
+            }
+            else {
+                $(".show_toastr").html(toastr(data.message,'times','danger'))
+                $("#invest_in_a_loan").removeAttr("disabled");
+                $("#invest_in_a_loan").html('Invest');
+            }
+
+            $("#invest_in_a_loan").removeAttr("disabled");
+                $("#invest_in_a_loan").html('Invest');
+
+        },
+
+        error: function (data){
+
+    
+
+        }
+    });
+
+ } 
+
 
 
   

@@ -23,20 +23,20 @@
               <div class="col ps-0">
             
               </div>
-            </div><!-- parent pages--><a class="nav-link" href="/home" role="button" data-bs-toggle="" aria-expanded="false">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-tachometer-alt"></span></span><span class="nav-link-text ps-1">Overview</span></div>
+            </div><!-- parent pages--><a class="nav-link" href="/admin/users" role="button" data-bs-toggle="" aria-expanded="false">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-tachometer-alt"></span></span><span class="nav-link-text ps-1">Users</span></div>
             </a><!-- parent pages-->
             
-            {{--  <a class="nav-link" href="/loanbook" role="button" data-bs-toggle="" aria-expanded="false">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-book"></span></span><span class="nav-link-text ps-1">My Loan Book</span></div>
-            </a><!-- parent pages-->  --}}
+            <a class="nav-link" href="/admin/schools" role="button" data-bs-toggle="" aria-expanded="false">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-book"></span></span><span class="nav-link-text ps-1">Schools</span></div>
+            </a><!-- parent pages-->
         
-            <a class="nav-link" href="loanfeed" role="button" data-bs-toggle="" aria-expanded="false">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-bolt"></span></span><span class="nav-link-text ps-1">Loan Feed</span></div>
+            <a class="nav-link" href="/admin/loans" role="button" data-bs-toggle="" aria-expanded="false">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-bolt"></span></span><span class="nav-link-text ps-1">Loans</span></div>
             </a><!-- parent pages-->
 
-            <a class="nav-link" href="/payment" role="button" data-bs-toggle="" aria-expanded="false">
-              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-credit-card"></span></span><span class="nav-link-text ps-1">Payments</span></div>
+            <a class="nav-link" href="/admin/settings" role="button" data-bs-toggle="" aria-expanded="false">
+              <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-credit-card"></span></span><span class="nav-link-text ps-1">System Settings</span></div>
             </a><!-- parent pages-->
 
 

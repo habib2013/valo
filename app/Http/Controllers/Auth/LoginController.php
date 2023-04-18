@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 use Auth;
-
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -51,9 +51,19 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password],)) {
 
+
+            $email = $request->email;
+
+            $is_admin = DB::select( DB::raw("SELECT is_admin FROM users WHERE email = :email"), array(
+                'email' => $email,
+            ));
+
+            $is_admin = $is_admin[0]->is_admin;
+
             $msg = array(
 				'status'  => 'success',
                 'message' => 'Login Successful',
+                'is_admin' => $is_admin
                 // 'username' => $username,
             );
 

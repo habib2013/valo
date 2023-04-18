@@ -10,8 +10,8 @@ class LoanProduct extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function investors(){
-        return $this->hasMany(LoanInvestor::class); 
+    public function loanInvestors(){
+        return $this->hasMany('App\Models\LoanInvestor');
      }
 
      

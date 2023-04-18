@@ -35,9 +35,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function investors(){
-       return $this->hasMany(LoanInvestor::class); 
+    public function loanInvestors()
+    {
+        return $this->hasMany('App\Models\LoanInvestor');
     }
+
 
     /**
      * The attributes that should be cast.

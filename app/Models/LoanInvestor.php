@@ -10,14 +10,14 @@ class LoanInvestor extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function investor()
+    public function loanProduct()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\Models\LoanProduct');
     }
 
-    public function loanproduct()
+    public function investor()
     {
-        return $this->belongsTo(LoanProduct::class);
+        return $this->belongsTo('App\Models\User');
     }
 
 }

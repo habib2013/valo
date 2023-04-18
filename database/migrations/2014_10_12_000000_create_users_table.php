@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('kyc_level')->default(0);
             $table->string('job_type')->nullable();
             $table->string('matric_number')->nullable();
-
+    
             $table->string('bvn')->nullable();
             $table->string('date_of_birth')->nullable();
 
@@ -40,6 +40,9 @@ return new class extends Migration
             $table->boolean('is_contact_updated')->default(0);
             $table->boolean('is_school_updated')->default(0);
             $table->boolean('is_personalInfo_updated')->default(0); 
+
+            $table->string('is_admin')->default(0);
+         
             $table->rememberToken();
             $table->timestamps();
         });

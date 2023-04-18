@@ -31,24 +31,24 @@
                 </div>
                 <div class="p-4 bg-light">
                   <ul class="list-unstyled">
-                    <div class="d-flex justify-content-between">
+                    {{--  <div class="d-flex justify-content-between">
                       <div class="pb-2"> <span class="fas fa-check text-primary" data-fa-transform="shrink-2"> </span> Minimum Investment: </div>
                       <div>  ₦ {{$item->min_principal}}</div>
-                    </div>
+                    </div>  --}}
 
                     <div class="d-flex justify-content-between">
-                      <div class="pb-2"> <span class="fas fa-check text-primary" data-fa-transform="shrink-2"> </span> Maximum Investment: </div>
+                      <div class="pb-2"> <span class="fas fa-check text-primary" data-fa-transform="shrink-2"> </span>  Investment: </div>
                       <div>  ₦  {{$item->max_principal}} </div>
                     </div>
-
+{{--  
                     <div class="d-flex justify-content-between">
                       <div class="pb-2"> <span class="fas fa-check text-primary" data-fa-transform="shrink-2"> </span> Minimum Interest: </div>
                       <div>   {{$item->min_interest}}% </div>
-                    </div>
+                    </div>  --}}
 
 
                     <div class="d-flex justify-content-between">
-                      <div class="pb-2"> <span class="fas fa-check text-primary" data-fa-transform="shrink-2"> </span> Maximum Interest: </div>
+                      <div class="pb-2"> <span class="fas fa-check text-primary" data-fa-transform="shrink-2"> </span>  Interest: </div>
                       <div>    {{$item->max_interest}}% </div>
                     </div>
 
