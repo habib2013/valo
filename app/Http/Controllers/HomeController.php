@@ -279,7 +279,7 @@ class HomeController extends Controller
 
   else {
     $bvn = $request->userbvn;
-    $findData = BvnData::where('bvn',$bvn)->first();
+    $findData = BvnData::where('NIN',$bvn)->first();
     
     // if(is_null($findData)){
 
